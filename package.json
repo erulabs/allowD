@@ -1,0 +1,35 @@
+{
+  "name": "allowD",
+  "version": "0.0.1",
+  "description": "Realtime intelligent rate limiter based on IP address reputation, geolocation and more!",
+  "main": "_build/lib/index.js",
+  "repository": {
+    "url": "git@github.com:erulabs/allowD",
+    "type": "git"
+  },
+  "author": "Seandon Mooy",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^7.1.0",
+    "eslint": "^3.10.0",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-flowtype": "^2.25.0",
+    "eslint-plugin-promise": "^3.3.1",
+    "eslint-plugin-standard": "^2.0.1",
+    "flow-bin": "^0.35.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-flowtype": "^1.0.0",
+    "gulp-insert": "^0.5.0",
+    "gulp-newer": "^1.3.0",
+    "gulp-nodemon": "github:erulabs/gulp-nodemon",
+    "gulp-rollup": "^2.5.1",
+    "gulp-util": "^3.0.7",
+    "rollup-plugin-flow": "^1.0.1",
+    "rollup-plugin-replace": "^1.1.1"
+  },
+  "dependencies": {
+    "hot-shots": "^4.3.1",
+    "redis": "^2.6.3"
+  }
+}
