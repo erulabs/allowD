@@ -40,10 +40,10 @@ function flow () {
 }
 gulp.task('flow', gulp.parallel(flow))
 
-function apiRollup () {
+function serviceRollup () {
   return gulp.src(['./src/**/*.js'])
   .pipe(rollup({
-    entry: [ './src/index.js' ],
+    entry: [ './src/service/index.js' ],
     sourceMap: true,
     plugins: rollupPlugins
   }))
@@ -52,22 +52,36 @@ function apiRollup () {
   .on('error', handleErrors)
   .pipe(gulp.dest('./_build/'))
 }
-gulp.task('apiRollup', apiRollup)
+gulp.task('serviceRollup', serviceRollup)
+
+function libRollup () {
+  return gulp.src(['./src/**/*.js'])
+  .pipe(rollup({
+    entry: [ './src/lib/allowd.js' ],
+    sourceMap: true,
+    plugins: rollupPlugins
+  }))
+  .pipe(newer('./_build/'))
+  .pipe(insert.prepend(nodePrepend))
+  .on('error', handleErrors)
+  .pipe(gulp.dest('./_build/'))
+}
+gulp.task('libRollup', libRollup)
 
 const all_tasks = gulp.parallel([
-  apiRollup, lint
+  serviceRollup, libRollup, lint
 ])
 gulp.task('default', all_tasks)
 gulp.task('lint', lint)
-gulp.task('rollup', apiRollup)
+gulp.task('rollup', serviceRollup)
 
 gulp.task('watch', gulp.series(all_tasks, () => {
   nodemon({
-    script: './_build/index.js',
+    script: './_build/service/index.js',
     ext: '.js',
     watch: [
-      'src/**/*.js', 'env.plain'
+      'src/**/*.js'
     ],
-    tasks: ['apiRollup', 'lint']
+    tasks: ['serviceRollup', 'libRollup', 'lint']
   })
 }))
